@@ -4,6 +4,9 @@ const bodyParser = require('body-parser')
 const hbs = require('express-handlebars')
 const path = require('path')
 const compression = require('compression')
+const mongoose = require('mongoose')
+
+require('dotenv').config()
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,18 +38,26 @@ app
   .get('/', index)
   .get('/login', login)
 
-  app.listen(port, function () {
-    console.log('Our app is running on http://localhost:' + port);
-  });
+//   app.listen(port, function () {
+//     console.log('Our app is running on http://localhost:' + port);
+//   });
 
+mongoose
+  .connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xn2pr.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    app.listen(port, () => {console.log('Our app is running on http://localhost:' + port); });
+  }).catch(err => {
+    console.log(err)
+  })
 
-// app
-//   .listen(port, listening)
 
 // function listening() {
 //   console.log(`frontend server available on http://localhost:${port}`);
 //     browserSync({
-//       files: ['public/**/*.{js,css}'],
+//       files: ['public/**/*.{js,css}', 'views/**/*.{hbs}'],
 //       online: false,
 //       open: false,
 //       port: port + 1,

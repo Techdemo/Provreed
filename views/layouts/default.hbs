@@ -7,13 +7,21 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="proposal tool for studio Vreed">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
+  {{> nav }}
   <header class="page-header">
     <h1>ProVreed proposal</h1>
   </header>
   <body>
-    <main>
+    <main class="container">
     {{{ body }}}
     </main>
   </body>
+  <script src="./js/materialize.js"></script>
+  <script src="./js/index.js"></script>
+  <footer>
+  </footer>
+  {{> modal }}
 </html>
