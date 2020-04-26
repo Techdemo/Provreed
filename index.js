@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 // import routes
 const index = require('./routes/index')
 const login = require('./routes/login');
-const home = require('./routes/home');
+// const home = require('./routes/home');
 
 app
   .use(express.static(path.join(__dirname, '/public')))
@@ -33,21 +33,27 @@ app
 // route declares
 app
   .get('/', index)
+  .get('/login', login)
 
-app
-  .listen(port, listening)
+  app.listen(port, function () {
+    console.log('Our app is running on http://localhost:' + port);
+  });
 
-function listening() {
-  console.log(`frontend server available on http://localhost:${port}`);
-    browserSync({
-      files: ['public/**/*.{js,css}'],
-      online: false,
-      open: false,
-      port: port + 1,
-      proxy: 'localhost:' + port,
-      ui: false
-    });
-}
+
+// app
+//   .listen(port, listening)
+
+// function listening() {
+//   console.log(`frontend server available on http://localhost:${port}`);
+//     browserSync({
+//       files: ['public/**/*.{js,css}'],
+//       online: false,
+//       open: false,
+//       port: port + 1,
+//       proxy: 'localhost:' + port,
+//       ui: false
+//     });
+// }
 
 
 
