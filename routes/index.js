@@ -8,4 +8,10 @@ Router.get('/', (req, res) => {
   })
 })
 
+Router.post('/add', (req, res) => {
+
+  console.log("submitted")
+  return;
+})
+
 module.exports = Router;

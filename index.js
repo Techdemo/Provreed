@@ -13,8 +13,11 @@ const port = process.env.PORT || 3000;
 
 // import routes
 const index = require('./routes/index')
-const login = require('./routes/login');
+const login = require('./routes/login')
 // const home = require('./routes/home');
+
+// import models
+let Proposal = require('./models/models')
 
 app
   .use(express.static(path.join(__dirname, '/public')))
@@ -37,6 +40,8 @@ app
 app
   .get('/', index)
   .get('/login', login)
+  .post('/add', index)
+
 
 //   app.listen(port, function () {
 //     console.log('Our app is running on http://localhost:' + port);
@@ -48,23 +53,23 @@ mongoose
     useUnifiedTopology: true
   })
   .then(() => {
-    app.listen(port, () => {console.log('Our app is running on http://localhost:' + port); });
+    app.listen(port, listening);
   }).catch(err => {
     console.log(err)
   })
 
 
-// function listening() {
-//   console.log(`frontend server available on http://localhost:${port}`);
-//     browserSync({
-//       files: ['public/**/*.{js,css}', 'views/**/*.{hbs}'],
-//       online: false,
-//       open: false,
-//       port: port + 1,
-//       proxy: 'localhost:' + port,
-//       ui: false
-//     });
-// }
+function listening() {
+  console.log(`frontend server available on http://localhost:${port}`);
+    browserSync({
+      files: ['public/**/*.{js,css}', 'views/**/*.{hbs}'],
+      online: false,
+      open: false,
+      port: port + 1,
+      proxy: 'localhost:' + port,
+      ui: false
+    });
+}
 
 
 

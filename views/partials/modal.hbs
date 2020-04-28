@@ -1,15 +1,18 @@
 <div id="modal1" class="modal">
   <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    <h4>New proposal</h4>
+    <p>A prospect is a possible future customer.</p>
+    <div class="row">
+      <div class="col s12">
+        <form method="post" action="/add">
+            <label for="name_prospect">name prospect</label>
+            <input placeholder="Name prospect" id="name_prospect" type="text" class="validate">
+            <label for="name_customer">Design challenge for this prospect</label>
+            <input placeholder="Design challenge" id="challenge_prospect" type="text" class="validate">
+            <label for="services_prospect">kind of service requested</label>
+            <input placeholder="What kind of services does this prospect require?" id="services_prospect" type="text" class="validate">
+             <input type="submit" class="modal-close btn-flat" value="Submit">
+        </form>
+      </div>
   </div>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems, {});
-  });
-</script>
