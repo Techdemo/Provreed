@@ -16,9 +16,6 @@ const index = require('./routes/index')
 const login = require('./routes/login')
 // const home = require('./routes/home');
 
-// import models
-let Proposal = require('./models/models')
-
 app
   .use(express.static(path.join(__dirname, '/public')))
   .use(compression())
