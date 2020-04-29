@@ -1,7 +1,5 @@
-const browserSync = require('browser-sync');
 const express = require('express');
 const bodyParser = require('body-parser')
-const hbs = require('express-handlebars')
 const path = require('path')
 const compression = require('compression')
 const mongoose = require('mongoose')
@@ -10,65 +8,36 @@ require('dotenv').config()
 
 const app = express();
 const port = process.env.PORT || 3000;
+const io = require('socket.io').listen(app.listen(port));
 
-// import routes
-const index = require('./routes/index')
-const login = require('./routes/login')
-// const home = require('./routes/home');
+mongoose.connect(`mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-shard-00-00-xn2pr.mongodb.net:27017,cluster0-shard-00-01-xn2pr.mongodb.net:27017,cluster0-shard-00-02-xn2pr.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
+mongoose.connection.on("error", err => {
+  console.log("err", err)
+})
+
+mongoose.connection.on("connected", (err, res) => {
+  console.log("mongoose is connected")
+})
 
 app
   .use(express.static(path.join(__dirname, '/public')))
   .use(compression())
   .use(bodyParser.urlencoded({ extended: true }))
   .use(express.json())
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'hbs')
-  .engine('hbs', hbs({
-    extname: 'hbs',
-    defaultView: 'default',
-    layoutsDir: __dirname +
-        '/views/layouts/',
-    partialsDir: __dirname +
-        '/views/partials/'
-}));
 
+io.sockets.on('connection', function (socket) {
+  console.log('client connect');
+  socket.on('echo', function (data) {
+    io.sockets.emit('message', data);
+  });
+});
 
-// route declares
-app
-  .get('/', index)
-  .get('/login', login)
-  .post('/add', index)
-
-
-//   app.listen(port, function () {
-//     console.log('Our app is running on http://localhost:' + port);
-//   });
-
-mongoose
-  .connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xn2pr.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    app.listen(port, listening);
-  }).catch(err => {
-    console.log(err)
-  })
-
-
-function listening() {
-  console.log(`frontend server available on http://localhost:${port}`);
-    browserSync({
-      files: ['public/**/*.{js,css}', 'views/**/*.{hbs}'],
-      online: false,
-      open: false,
-      port: port + 1,
-      proxy: 'localhost:' + port,
-      ui: false
-    });
-}
-
-
+require('./routes/api')(app, io)
+console.log(`Server listening to ${port}`)
 
 
 
