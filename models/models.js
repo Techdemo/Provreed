@@ -1,19 +1,37 @@
-let mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-// proposal schema
-let proposalSchema = mongoose.Schema({
-  prospectName:{
+const ProposalSchema = new Schema({
+  prospectName: {
     type: String,
     required: true,
+    select: true,
   },
   prospectChallenge: {
     type: String,
     required: true,
+    select: true,
   },
   prospectServices: {
     type: String,
-    required: true
+    required: true,
+    select: true,
+  },
+  proposalCreated: {
+    type: String,
+    required: true,
+    select: true,
+  },
+  proposalOpened: {
+    type: String,
+    required: false
+  },
+  proposalStatus: {
+    type: String,
+    required: false
   }
-})
+});
 
-let Proposal = module.exports = mongoose.model('Proposal', proposalSchema)
+
+module.exports = mongoose.model('Proposal', ProposalSchema);
+
