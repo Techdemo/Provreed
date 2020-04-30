@@ -1,18 +1,21 @@
 const moment = require('moment')
 let Proposal = require('../models/models')
+const auth = require('../middleware/auth')
 
 module.exports = function (app, io) {
-  // Find All Endpoint.
-  app.get('/api/v1/proposals', (req, res) => {
+// @route GET api/proposals
+// @desc show all proposals
+// @acces restricted
+  app.get('/api/v1/proposals', auth, (req, res) => {
     Proposal.find()
       .then((proposals) => {
-        io.sockets.emit('update'); // how?
         res.status(200).json({
           resolved: "success",
           data: {
             proposals: proposals,
           },
         });
+        io.sockets.emit('update-proposals'); // how?
       })
       .catch((err) => {
         res.stats(500).json({
@@ -24,9 +27,10 @@ module.exports = function (app, io) {
   });
 
 
-  // Create Endpoint
-app.post('/api/v1/proposal/new', (req, res) => {
-
+// @route POST api/proposal/new
+// @desc post a new proposal
+// @acces restricted
+app.post('/api/v1/proposal/new', auth, (req, res) => {
   if (!req.body.proposal) {
     res.status(400).json({
       resolved: "failure",

@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser')
 const path = require('path')
 const compression = require('compression')
 const mongoose = require('mongoose')
@@ -26,8 +25,10 @@ mongoose.connection.on("connected", (err, res) => {
 app
   .use(express.static(path.join(__dirname, '/public')))
   .use(compression())
-  .use(bodyParser.urlencoded({ extended: true }))
   .use(express.json())
+  // .get('*', (req, res) => {
+  //   res.sendFile(path.resolve(__dirname, '/../public/index.html'));
+  // })
 
 io.sockets.on('connection', function (socket) {
   console.log('client connect');
@@ -36,7 +37,9 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-require('./routes/api')(app, io)
+require('./routes/proposal.api')(app, io)
+require('./routes/user.api')(app, io)
+require('./routes/auth.api.js')(app)
 console.log(`Server listening to ${port}`)
 
 
