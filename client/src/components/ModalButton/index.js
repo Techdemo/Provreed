@@ -14,8 +14,6 @@ const ModalButton = ({ text }) => {
     },
   }));
 
-  const classes = useStyles();
-
   const {
     modalOpen,
     setModalOpen

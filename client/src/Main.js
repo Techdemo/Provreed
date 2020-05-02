@@ -13,10 +13,14 @@ const Main = () => {
     token
   } = useAuth()
 
+  // dit hoort hier dan ook niet. Dit moet ook naar de context
   const [sessionToken, setSessionToken] = useState(null)
 
   React.useEffect(() => {
-    // hier komt een check sessie token. Je checkt of er een token in je localStorage aanwezig is.
+    // maak eerst even een formulier waarmee je kan inloggen op de server
+    // Schrijf een login functie waarmee je kan inloggen.
+    // hier komt een check sessie token uit rollen als response.
+    // Je checkt of er een token in je localStorage aanwezig is.
     // als er geen token aanwezig is in localStorage, dan redirect je naar login
     // is deze er wel, check of de token nog valide is.
     // als de token niet valide is, redirect dan naar Login door geen token te zetten
