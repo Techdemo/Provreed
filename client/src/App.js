@@ -1,9 +1,18 @@
 import React from 'react';
-import { Home } from './pages/Home/index'
+import Main from './Main';
+import { ModalProvider } from '../src/context/modalContext';
+import { AuthProvider } from '../src/context/authContext';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <Home />
+    <AuthProvider>
+      <BrowserRouter>
+        <ModalProvider>
+          <Main />
+        </ModalProvider>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

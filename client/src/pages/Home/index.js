@@ -1,5 +1,17 @@
 import React from 'react';
+import Title from '../../components/Title/index'
+import ProposalModal from '../../modules/modal'
 
-export const Home = () => {
-  return <h1>Dit is het home component</h1>
+import NavBar from '../../components/Navbar'
+
+const HomePage = () => {
+  return (
+    <>
+      <NavBar />
+      <Title string="dit is provreed" />
+      <ProposalModal />
+    </>
+  )
 }
+
+export default HomePage
