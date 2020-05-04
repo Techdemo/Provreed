@@ -3,6 +3,7 @@ import Title from '../../components/Title/index';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useForm } from "react-hook-form";
+import { useAuth } from '../../context/authContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,11 +20,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginPage = () => {
+  const {
+    login
+  } = useAuth()
   const classes = useStyles();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = data => {
-    console.log('data submitted', data)
+    login(data)
   }
 
   return (

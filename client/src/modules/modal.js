@@ -22,7 +22,6 @@ Modal.setAppElement('#root')
 const ProposalModal = () => {
   const {
     modalOpen,
-    setModalOpen
   } = useModal()
 
   return (
