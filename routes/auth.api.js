@@ -10,7 +10,7 @@ module.exports = function (app, io) {
 // @acces public
   app.post('/api/v1/auth', async (req, res) => {
     const { username, password } = req.body
-    console.log('hier gebeurd iets')
+
     // validation
     if (!password || !username) {
       return res.status(400).json({

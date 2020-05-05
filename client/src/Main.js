@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -10,38 +10,32 @@ import LoginPage from './pages/LoginPage'
 
 const Main = () => {
   const {
-    token
+    isAuthenticated,
   } = useAuth()
 
   // dit hoort hier dan ook niet. Dit moet ook naar de context
   // const [sessionToken, setSessionToken] = useState(true)
-    // [X] - maak eerst even een formulier waarmee je kan inloggen op de server
-    // [ ] - Schrijf een login functie waarmee je kan inloggen.
-    // [ ] - hier komt een check sessie token uit rollen als response.
-    // [ ] - Je checkt of er een token in je localStorage aanwezig is.
-    // [ ] - als er geen token aanwezig is in localStorage, dan redirect je naar login
-    // [ ] - is deze er wel, check of de token nog valide is.
-    // [ ] - als de token niet valide is, redirect dan naar Login door geen token te zetten
-    // [ ] - als de token wel valide is, zet hem dan in je context.
     // [ ] - met elke nieuwe request die je uitvoert, check je of de token nog valide is.
     // [ ] - wanneer deze niet valide is redirect je naar login.
+    // [ ] - voeg token toe als conditional in je router
+
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm">
         <Switch>
-          {token && (
+          {isAuthenticated && (
             <Redirect from="/login" to="/" exact />
           )}
-          {!token && (
+          {!isAuthenticated && (
             <Redirect from="/" to="/login" exact />
           )}
-          {!token && (
+          {!isAuthenticated && (
             <Route path="/login" component={LoginPage} />
           )}
           <Route path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
-          {!token && <Redirect to="/login" exact />}
+          {!isAuthenticated && <Redirect to="/login" exact />}
         </Switch>
       </Container>
     </React.Fragment>
