@@ -34,7 +34,9 @@ const LoginPage = () => {
     <>
       <Title string="Login pagina" />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="username">Username</label>
         <input name="username" ref={register({ required: true })} />
+        <label htmlFor="password">password</label>
         <input name="password" ref={register({ required: true })} />
         {errors.username && <span>username is required</span>}
         {errors.password && <span>password is required</span>}

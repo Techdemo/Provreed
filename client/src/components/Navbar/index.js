@@ -32,7 +32,7 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
         Provreed
         </Typography>
-        <Button onClick={() => setModalOpen(!modalOpen)} color="inherit">Nieuwe offerte</Button>
+        <Button onClick={() => setModalOpen(!modalOpen)} color="inherit">Create proposal</Button>
       </Toolbar>
     </AppBar>
   )

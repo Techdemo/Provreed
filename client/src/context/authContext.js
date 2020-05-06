@@ -6,7 +6,7 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(null)
   const [userId, setUserId] = useState(null)
-  const [isAuthenticated, setAuth] = useState(true)
+  const [isAuthenticated, setAuth] = useState(false)
 
   const login = ({password, username}) => {
     // request body
@@ -65,7 +65,8 @@ export function AuthProvider({ children }) {
     setToken,
     login,
     isAuthenticated,
-    loadUser
+    loadUser,
+    tokenConfig,
   }}>
     {children}
   </AuthContext.Provider>

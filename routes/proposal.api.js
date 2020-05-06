@@ -15,7 +15,7 @@ module.exports = function (app, io) {
             proposals: proposals,
           },
         });
-        io.sockets.emit('update-proposals'); // how?
+        // io.sockets.emit('update-proposals'); // how?
       })
       .catch((err) => {
         res.stats(500).json({
@@ -31,7 +31,8 @@ module.exports = function (app, io) {
 // @desc post a new proposal
 // @acces restricted
 app.post('/api/v1/proposal/new', auth, (req, res) => {
-  if (!req.body.proposal) {
+  console.log("req", req.body.prospectName)
+  if (!req.body.prospectName) {
     res.status(400).json({
       resolved: "failure",
       message: 'req.body.proposal can not be empty',
@@ -40,9 +41,9 @@ app.post('/api/v1/proposal/new', auth, (req, res) => {
   }
 
   const proposal = new Proposal({
-    prospectName: req.body.proposal.prospectName, //String.  Required.. Selected.
-    prospectChallenge: req.body.proposal.prospectChallenge, //String.  Required.. Selected.
-    prospectServices: req.body.proposal.prospectServices, //String.  Required.. Selected.
+    prospectName: req.body.prospectName, //String.  Required.. Selected.
+    prospectChallenge: req.body.prospectChallenge, //String.  Required.. Selected.
+    prospectServices: req.body.prospectServices, //String.  Required.. Selected.
     proposalCreated: moment().format('DD/MM/YYYY'),
     proposalOpened: 'Not yet opened',
     proposalStatus: 'Open'

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
 import { useAuth } from './context/authContext';
 
 import HomePage from './pages/Home'
+import NavBar from './components/Navbar'
 import LoginPage from './pages/LoginPage'
 
 const Main = () => {
@@ -22,7 +22,8 @@ const Main = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="sm">
+      <NavBar />
+      <Container>
         <Switch>
           {isAuthenticated && (
             <Redirect from="/login" to="/" exact />
