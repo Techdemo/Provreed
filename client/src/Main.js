@@ -1,48 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-
 import { useAuth } from './context/authContext';
 
 import HomePage from './pages/Home'
+import NavBar from './components/Navbar'
 import LoginPage from './pages/LoginPage'
 
 const Main = () => {
   const {
-    token
+    isAuthenticated,
   } = useAuth()
 
-  const [sessionToken, setSessionToken] = useState(null)
-
-  React.useEffect(() => {
-    // hier komt een check sessie token. Je checkt of er een token in je localStorage aanwezig is.
-    // als er geen token aanwezig is in localStorage, dan redirect je naar login
-    // is deze er wel, check of de token nog valide is.
-    // als de token niet valide is, redirect dan naar Login door geen token te zetten
-    // als de token wel valide is, zet hem dan in je context.
-    // met elke nieuwe request die je uitvoert, check je of de token nog valide is.
-    // wanneer deze niet valide is redirect je naar login.
-    setSessionToken(token)
-  }, [token])
+  // dit hoort hier dan ook niet. Dit moet ook naar de context
+  // const [sessionToken, setSessionToken] = useState(true)
+    // [ ] - met elke nieuwe request die je uitvoert, check je of de token nog valide is.
+    // [ ] - wanneer deze niet valide is redirect je naar login.
+    // [ ] - voeg token toe als conditional in je router
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="sm">
+      <NavBar />
+      <Container>
         <Switch>
-          {sessionToken && (
+          {isAuthenticated && (
             <Redirect from="/login" to="/" exact />
           )}
-          {!sessionToken && (
+          {!isAuthenticated && (
             <Redirect from="/" to="/login" exact />
           )}
-          {!sessionToken && (
+          {!isAuthenticated && (
             <Route path="/login" component={LoginPage} />
           )}
           <Route path="/" component={HomePage} />
           <Route path="/login" component={LoginPage} />
-          {!sessionToken && <Redirect to="/login" exact />}
+          {!isAuthenticated && <Redirect to="/login" exact />}
         </Switch>
       </Container>
     </React.Fragment>

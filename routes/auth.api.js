@@ -7,7 +7,7 @@ const auth = require('../middleware/auth')
 module.exports = function (app, io) {
 // @route POST api/auth
 // @desc authenticate user
-// @acces restricted
+// @acces public
   app.post('/api/v1/auth', async (req, res) => {
     const { username, password } = req.body
 

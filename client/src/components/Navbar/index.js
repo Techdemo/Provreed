@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -32,7 +32,7 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
         Provreed
         </Typography>
-        <Button onClick={() => setModalOpen(!modalOpen)} color="inherit">Nieuwe offerte</Button>
+        <Button onClick={() => setModalOpen(!modalOpen)} color="inherit">Create proposal</Button>
       </Toolbar>
     </AppBar>
   )
