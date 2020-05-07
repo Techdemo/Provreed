@@ -17,3 +17,19 @@ export const addProposal = (data, token) => {
   })
 }
 
+// export const fetchProposals = (token) => {
+//   axios.get('http://localhost:5000/api/v1/proposals', {
+//     headers: {
+//       'Content-type': 'application/json',
+//       'x-auth-token': token
+//     }
+//   })
+//   .then((res) => {
+//     console.log("req gaat goed", res.data)
+//     return res.data
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+// }
+
