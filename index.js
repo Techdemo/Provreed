@@ -32,6 +32,8 @@ app
   //   res.sendFile(path.resolve(__dirname, '/../public/index.html'));
   // })
 
+  // check if I can update the repo
+
 io.sockets.on('connection', function (socket) {
   console.log('client connect');
   socket.on('echo', function (data) {
