@@ -1,5 +1,5 @@
 const moment = require('moment')
-let Proposal = require('../models/models')
+let Proposal = require('../models/Proposal')
 const auth = require('../middleware/auth')
 
 module.exports = function (app, io) {
@@ -31,7 +31,6 @@ module.exports = function (app, io) {
 // @desc post a new proposal
 // @acces restricted
 app.post('/api/v1/proposal/new', auth, (req, res) => {
-  console.log("req", req.body.prospectName)
   if (!req.body.prospectName) {
     res.status(400).json({
       resolved: "failure",

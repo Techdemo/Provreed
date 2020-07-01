@@ -20,7 +20,6 @@ const HomePage = () => {
           'x-auth-token': token
         }
       })
-
       setProposals(result.data.data.proposals)
     }
 

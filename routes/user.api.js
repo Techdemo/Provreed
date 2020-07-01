@@ -1,4 +1,4 @@
-let User = require('../models/user')
+let User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
@@ -7,7 +7,9 @@ const auth = require('../middleware/auth')
 module.exports = function (app, io) {
 // @route POST api/user
 // @desc Register new user
-// @acces restricted
+// @acces restricted / only admin has acces
+
+//  TODO: write middleware to see if user has admin acces
   app.post('/api/v1/user/new', auth, (req, res) => {
     const { password, username } = req.body
     if (!password || !username) {
@@ -60,6 +62,8 @@ module.exports = function (app, io) {
 // @route DELETE api/user
 // @desc Delete a single user
 // @acces restricted
+
+//  TODO: write middleware to see if user has admin acces
   app.delete('/api/v1/user/:userId', auth, (req, res) => {
     User.findByIdAndRemove(req.params.userId)  //Returns the updated document.
       .then((user) => {

@@ -1,4 +1,4 @@
-let User = require('../models/user')
+let User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
@@ -10,7 +10,7 @@ module.exports = function (app, io) {
 // @acces public
   app.post('/api/v1/auth', async (req, res) => {
     const { username, password } = req.body
-
+    console.log("username voor de user", username)
     // validation
     if (!password || !username) {
       return res.status(400).json({
@@ -21,6 +21,7 @@ module.exports = function (app, io) {
     try {
         // check for existing user
       const user = await User.findOne({ username })
+
       if (!user) return res.status(400).json({ msg: "User does not exist" });
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -37,6 +38,7 @@ module.exports = function (app, io) {
         }
       })
     } catch(err) {
+      console.log("in de catch")
       res.status(400).json({ msg: err.message })
     }
   })

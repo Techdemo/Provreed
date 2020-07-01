@@ -42,6 +42,7 @@ io.sockets.on('connection', function (socket) {
 require('./routes/proposal.api')(app, io)
 require('./routes/user.api')(app, io)
 require('./routes/auth.api.js')(app)
+require('./routes/admin.api.js')(app, io)
 console.log(`Server listening to ${port}`)
 
 

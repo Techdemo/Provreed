@@ -6,7 +6,6 @@ function auth (req, res, next){
 
   // Check for token
   if (!token) {
-    console.log("komt hij hier terecht?")
     return res.status(401).json({ msg: 'No token, authorizaton denied' });
   }
 
