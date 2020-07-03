@@ -46,7 +46,6 @@ module.exports = function (app, io) {
 // @route GET api/auth/user
 // @desc get user data
 // @acces private
-
   app.get('/api/v1/auth/user', auth, (req, res) => {
     User.findById(req.user.id)
     .select('-password')
