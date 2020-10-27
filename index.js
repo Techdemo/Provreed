@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path')
 const compression = require('compression')
 const mongoose = require('mongoose')
+const hbs = require('express-handlebars')
 const cors = require('cors')
 
 require('dotenv').config()
@@ -28,6 +29,16 @@ app
   .use(express.static(path.join(__dirname, '/public')))
   .use(compression())
   .use(express.json())
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'hbs')
+  .engine('hbs', hbs({
+    extname: 'hbs',
+    defaultView: 'default',
+    layoutsDir: __dirname +
+      '/views/layouts/',
+    partialsDir: __dirname +
+      '/views/partials/'
+  }))
   // .get('*', (req, res) => {
   //   res.sendFile(path.resolve(__dirname, '/../public/index.html'));
   // })
@@ -39,10 +50,11 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-require('./routes/proposal.api')(app, io)
-require('./routes/user.api')(app, io)
-require('./routes/auth.api.js')(app)
-require('./routes/admin.api.js')(app, io)
+require('./routes/adminPage')(app);
+require('./routes/proposal.api')(app, io);
+require('./routes/user.api')(app, io);
+require('./routes/auth.api.js')(app);
+require('./routes/admin.api.js')(app, io);
 console.log(`Server listening to ${port}`)
 
 
