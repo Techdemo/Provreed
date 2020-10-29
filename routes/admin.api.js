@@ -1,4 +1,5 @@
 let Admin = require('../models/Admin')
+let User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
@@ -185,9 +186,9 @@ module.exports = function(app, io) {
 //@route POST api/admin/user/create
 //@desc Create a single user with user role
 //acces admin only
-
-  app.post('api/v1/admin/user/create', verifyAdmin, (req, res) => {
+  app.post('/api/v1/admin/user/create', (req, res) => {
     const { password, username } = req.body
+   
     if (!password || !username) {
       res.status(400).json({
         resolved: "failure",
